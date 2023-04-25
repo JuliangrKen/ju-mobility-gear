@@ -47,8 +47,10 @@ end
 
 -- includes functions:
 
-addSh(rDir..'/cfg.lua')
+addSh(rDir..'cfg.lua')
+
 addDir 'core'
+addDir 'expansions'
 
 if ju.mobility_gear.cfg.debug then
     addDir 'debug_mode'
