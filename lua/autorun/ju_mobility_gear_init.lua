@@ -48,7 +48,11 @@ end
 -- includes functions:
 
 addSh(rDir..'/cfg.lua')
+addDir 'core'
 
+if ju.mobility_gear.cfg.debug then
+    addDir 'debug_mode'
+end
 
 -- Hello msg:
 MsgC(Color(134, 223, 201), '\n~~~\tJuliandrKen (Julik#8946) Mobility Gear was loaded. Eat the titan!\t~~~\n')

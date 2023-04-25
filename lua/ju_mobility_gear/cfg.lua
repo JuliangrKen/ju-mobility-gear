@@ -23,4 +23,9 @@ cfg.attack_anim = nil
 cfg.fly_anim = nil
 
 -- ОСТАЛЬНОЕ
+
+-- Категория для оружий в Q-меню
 cfg.q_menu_category = 'AOT - Ju Modity Gear'
+
+-- Включает дебаг мод для отладки
+cfg.debug = true
