@@ -4,7 +4,7 @@
 
 ju = ju or {}
 ju.mobility_gear = ju.mobility_gear or {}
-
+ju.mobility_gear.cfg = ju.mobility_gear.cfg or {}
 
 -- include functions:
 
