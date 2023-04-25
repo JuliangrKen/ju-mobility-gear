@@ -1,3 +1,4 @@
+
 -- by Julik#8946
 
 -- addon global tables
@@ -46,4 +47,8 @@ end
 
 -- includes functions:
 
-addSh('cfg.lua')
+addSh(rDir..'/cfg.lua')
+
+
+-- Hello msg:
+MsgC(Color(134, 223, 201), '\n~~~\tJuliandrKen (Julik#8946) Mobility Gear was loaded. Eat the titan!\t~~~\n')
