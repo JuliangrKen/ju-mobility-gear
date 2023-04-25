@@ -15,3 +15,12 @@ concommand.Add('ju_mg_draw_dots', function(ply, cmd, args, argStr)
     hook.Add('PostDrawOpaqueRenderables', 'ju_mobility_gear_draw_dots', drawMGDots)
 
 end, function () return {0, 1} end)
+
+concommand.Add('ju_mg_get_my_mg_state', function()
+    
+    local ply = LocalPlayer()
+    local mgState = ply:GetMGState()
+
+    print(mgState)
+
+end)
