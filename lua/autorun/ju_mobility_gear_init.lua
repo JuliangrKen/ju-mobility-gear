@@ -46,3 +46,4 @@ end
 
 -- includes functions:
 
+addSh('cfg.lua')
