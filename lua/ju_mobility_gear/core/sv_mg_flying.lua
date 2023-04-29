@@ -18,7 +18,7 @@ hook.Add('Move', 'ju_mobility_gear_move', function(ply, mv)
 
     local state = ply:GetMGState() or 0
 
-    if state = 0 then
+    if state == 0 then
         return
     end
 
