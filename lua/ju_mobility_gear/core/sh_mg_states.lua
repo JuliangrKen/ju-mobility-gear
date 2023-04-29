@@ -36,6 +36,8 @@ local upper = string.upper
 
 function mg.isMGState(argument)
 
+    if !argument then return false end
+
     if isstring(argument) then
         return MG_STATES_NAMES[upper(argument)] != nil
     end
@@ -45,6 +47,7 @@ function mg.isMGState(argument)
     end
 
     return false
+    
 end
 
 function mg.isCorrectMGState(player, newState)
