@@ -42,7 +42,6 @@ if SERVER then
 
     function ENT:Start()
         
-
         -- TODO: изменить метод создание верёвки на более гибкий и подходящий
         local _, rope = Rope(
 
