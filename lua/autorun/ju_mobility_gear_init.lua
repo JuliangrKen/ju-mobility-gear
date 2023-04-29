@@ -6,6 +6,7 @@
 ju = ju or {}
 ju.mobility_gear = ju.mobility_gear or {}
 ju.mobility_gear.cfg = ju.mobility_gear.cfg or {}
+ju.mobility_gear.resources = ju.mobility_gear.resources or {}
 
 -- include functions:
 
@@ -48,9 +49,10 @@ end
 -- includes functions:
 
 addSh(rDir..'cfg.lua')
+addSh(rDir..'resourses.lua')
 
 addDir 'core'
-addDir 'expansions'
+addDir 'core/expansions'
 
 if ju.mobility_gear.cfg.debug then
     addDir 'debug_mode'
