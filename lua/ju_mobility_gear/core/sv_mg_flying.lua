@@ -1,6 +1,24 @@
 
 local mg = ju.mobility_gear
 
+local function moveWithMG(ply, mv)
+
+    print 'moveWithMG'
+    
+end
+
+local function moveWithMGMode(ply, mv)
+    
+    print 'moveWithMGMode'
+
+end
+
+local function pushWithHooks(ply, mv)
+    
+    print 'pushWithHooks'
+
+end
+
 local function fly(ply, mv)
     
     print 'fly'
@@ -14,7 +32,19 @@ local function flyWithHooks(ply, mv)
 end
 
 local switchTable = {
+    -- PASSIVE
+    [1] = moveWithMG,
+
+    -- ACTIVE
+    [2] = moveWithMGMode,
+
+    -- HOOK_PULLS
+    [3] = pushWithHooks,
+
+    -- FLIGHT
     [4] = fly,
+
+    -- FLIGHT_AND_HOOK_PULLS
     [5] = flyWithHooks,
 }
 
