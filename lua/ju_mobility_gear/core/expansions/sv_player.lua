@@ -6,14 +6,14 @@ local GM = GM or GAMEMODE
 util.AddNetworkString 'Ju_UpdateMGState'
 
 
-local PLAYER = FindMetaTable('Player')
+local PLAYER = FindMetaTable 'Player'
 
 
 function PLAYER:UpdateClientMGState(state, ply, noCheck)
     
     state = state or self.MGState
 
-    if !noCheck and !mg.isCorrectMGState(self, state) then return end
+    if !(noCheck or mg.isCorrectMGState(self, state)) then return end
 
     ply = ply or self
 
@@ -32,11 +32,13 @@ function PLAYER:SetMGState(newState)
 
     local oldState = self.MGState or 0
 
-    hook.Call('Ju_MGState_PreChanged', GM, self, oldState, newState)
+    if !hook.Run('Ju_MGState_CanChanged', oldState, newState) then
+        return
+    end
 
+    
     self.MGState = newState
-
-    hook.Call('Ju_MGState_WasChanged', GM, self, oldState, newState)
+    hook.Run('Ju_MGState_WasChanged', oldState, newState)
 
     self:UpdateClientMGState(nil, nil, true)
 
