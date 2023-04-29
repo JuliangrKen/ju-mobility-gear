@@ -34,6 +34,10 @@ local isstring = isstring
 local string = string
 local upper = string.upper
 
+--[[
+    Проверяет, является ли данный тип данных MG State
+        ! nil возвращает false !
+]]
 function mg.isMGState(argument)
 
     if !argument then return false end
@@ -47,9 +51,12 @@ function mg.isMGState(argument)
     end
 
     return false
-    
+
 end
 
+--[[
+    Проверяет корректность MG State при смене его у игрока
+]]
 function mg.isCorrectMGState(player, newState)
 
     return
