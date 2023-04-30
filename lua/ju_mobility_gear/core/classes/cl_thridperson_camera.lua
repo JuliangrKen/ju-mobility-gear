@@ -1,7 +1,6 @@
 
 local setmetatable = setmetatable
-
-local ply = LocalPlayer()
+local LocalPlayer = LocalPlayer
 
 local CAMERA = {}
 
@@ -11,6 +10,8 @@ local CAMERA = {}
 
     Pos
     Angle
+
+    NeedDrawViewer
 
 ]]
 
@@ -77,6 +78,25 @@ function CAMERA:considerHits()
     
 end
 
+function CAMERA:checkDrawViewer()
+
+    self.NeedDrawViewer = true
+
+    local ply = LocalPlayer()
+    
+    if IsValid(ply) then
+
+        local matrix = Matrix()
+        
+        local pPos = ply:GetPos()
+        local pCenterPos = Vector(pPos[1], pPos[2], pPos[3] + 32)
+
+        self.NeedDrawViewer = self.minDist * self.minDist < self.Pos:DistToSqr(pCenterPos)
+
+    end
+
+end
+
 --[[
     [ Main method ]
 
@@ -89,7 +109,9 @@ function CAMERA:Recalculate()
 
     self:addDynamic()
     self:considerHits()
-    
+
+    self:checkDrawViewer()
+
     return self
 
 end
