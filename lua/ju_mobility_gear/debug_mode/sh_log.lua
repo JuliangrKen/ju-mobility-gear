@@ -12,6 +12,8 @@ function mg.log(message)
         print '\n\n\n<< START >>\n\n\n'
         PrintTable(message)
         print '\n\n\n<< END >>\n\n\n'
+        
+        return
     end
 
     print(tag .. message)
