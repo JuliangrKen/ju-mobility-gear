@@ -9,11 +9,14 @@ local minDist = 16
 local maxDist = 128
 local height = 16
 
-local camera = ju.mobility_gear.classes.camera:new(minDist, maxDist, height)
+-- TODO: Разместить создание камеры в момент смены MG State
+-- local camera = ju.mobility_gear.classes.camera:new(minDist, maxDist, height)
 
 local function calcView(ply, eyeVector, eyeAngle, fov, znear, zfar)
 
-    local c = camera:SetEyePos(eyeVector)
+    local c = ju.mobility_gear.classes.camera
+                    :new(minDist, maxDist, height)
+                    :SetEyePos(eyeVector)
                     :SetEyeAngle(eyeAngle)
                     :Recalculate()
 
