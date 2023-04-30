@@ -65,17 +65,14 @@ end
 
 function CAMERA:considerHits()
 
-    -- TODO: Проверить удачность направления и добавления
-
     local trace = util.TraceLine({
         start = self.eyePos,
-        endpos = self.Angle,
+        endpos = self.Pos,
+        collisiongroup = COLLISION_GROUP_WORLD,
     })
 
-    -- TODO: Используя данные о трейсе избегать столкновения с объектами
-    
     if trace.Hit then
-        origin = trace.HitPos
+        self.Pos = trace.HitPos
     end
     
 end
