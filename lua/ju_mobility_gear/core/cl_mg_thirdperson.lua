@@ -5,74 +5,23 @@ local sin = math.sin
 local timeC = TimedCos
 local timeS = TimedSin
 
-local camDist = 128
-local camAddition = 16
+local minDist = 16
+local maxDist = 128
+local height = 16
 
-local function getBasePos(origin, angle)
-    return origin - angle:Forward() * camDist
-end
+local camera = ju.mobility_gear.classes.camera:new(minDist, maxDist, height)
 
-local function addDynamicEffect(ply, origin, angle)
-    
-    -- TODO: Покачивания
-    -- TODO: Эффект зума на высокой скорости
-    -- TODO: Добавить плавности
-    
-    return origin, angle
+local function calcView(ply, eyeVector, eyeAngle, fov, znear, zfar)
 
-end
-
-local function considerTraceRestrictions(origin, angle)
-
-    -- TODO: Проверить удачность направления и добавления
-
-    local startPos = origin + angle:Forward() * camAddition
-    local endPos = origin - angle:Forward() * camAddition
-
-    local trace = util.TraceLine({
-        start = startPos,
-        endpos = endPos,
-    })
-
-    -- TODO: Используя данные о трейсе избегать столкновения с объектами
-    
-    if trace.Hit then
-        origin = startPos
-    end
-    
-    return origin
-
-end
-
-local function checkPosCorrectness(ply, origin, angle)
-
-    local bottomPos = ply:GetPos()
-
-    origin = considerTraceRestrictions(origin, angle)
-
-    return origin
-
-end
-
-local function getCamPosAndAngles(ply, origin, angle)
-
-    origin = getBasePos(origin, angle)
-    origin, angle = addDynamicEffect(ply, origin, angle)
-    origin = checkPosCorrectness(ply, origin, angle)
-
-    return origin, angle
-
-end
-
-local function calcView(ply, origin, angle, fov, znear, zfar)
-
-    local origin, angles = getCamPosAndAngles(ply, origin, angle)
+    local c = camera:SetEyePos(eyeVector)
+                    :SetEyeAngle(eyeAngle)
+                    :Recalculate()
 
     local view = {
 
         -- main settings:
-		origin = origin,
-		angles = angles,
+		origin = c.Pos,
+		angles = c.Angle,
 		drawviewer = true,
 
         -- other
