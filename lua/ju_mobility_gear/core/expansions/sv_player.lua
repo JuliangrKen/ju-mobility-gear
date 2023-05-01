@@ -13,15 +13,15 @@ function PLAYER:SetMGState(newState)
 
     if !mg.isCorrectMGState(self, newState) then return end
 
-    local oldState = self.MGState or 0
+    local oldState = self:GetMGState()
 
-    local can = hook.Run('Ju_MGState_CanChanged', oldState, newState)
+    local can = hook.Run('Ju_MGState_CanChanged', self, oldState, newState)
     if isbool(can) and !can then
         return
     end
 
     self.MGState = newState
-    hook.Run('Ju_MGState_WasChanged', oldState, newState)
+    hook.Run('Ju_MGState_WasChanged', self, oldState, newState)
 
     mg.UpdatePlyMGState(self)
 
