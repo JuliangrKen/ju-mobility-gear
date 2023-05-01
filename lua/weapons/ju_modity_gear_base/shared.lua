@@ -18,23 +18,49 @@ SWEP.DrawCrosshair = false
 
 function SWEP:Initialize()
 
-end
-
-
-function SWEP:Reload()
     
+
 end
 
-function SWEP:Deploy()
+if SERVER then
+
+    function SWEP:startMG()
+        
+        self:GetOwner():SetMGState(2)
+        
+    end
+
+    function SWEP:endMG()
+        
+        self:GetOwner():SetMGState(0)
+        
+    end
     
-end
+    function SWEP:Deploy()
+        
+        self:startMG()
 
+    end
+
+    function SWEP:Holster(weapon)
+        
+        self:endMG()
+
+        return true
+    
+    end
+
+end
 
 function SWEP:PrimaryAttack()
+    if !IsFirstTimePredicted() then return end
+
     print 'PrimaryAttack'
 end
 
 function SWEP:SecondaryAttack()
+    if !IsFirstTimePredicted() then return end
+
     print 'SecondaryAttack'
 end
 
