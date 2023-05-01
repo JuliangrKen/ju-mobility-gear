@@ -42,15 +42,27 @@ function mg.isMGState(argument)
 
     if !argument then return false end
 
-    if isstring(argument) then
-        return MG_STATES_NAMES[upper(argument)] != nil
-    end
-    
     if isnumber(argument) then
         return MG_STATES[argument] != nil
     end
 
+    if isstring(argument) then
+        return MG_STATES_NAMES[upper(argument)] != nil
+    end
+
     return false
+
+end
+
+function mg.getMGStateName(argument, noCheck)
+    
+    if !noCheck and !mg.isMGState(argument) then
+
+        return 'is not MGState!'
+
+    end
+
+    return MG_STATES[argument] 
 
 end
 
