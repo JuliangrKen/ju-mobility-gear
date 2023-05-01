@@ -59,6 +59,7 @@ local function handleMGStateWasChanged(ply, oldState, newState)
 end
 
 if cfg.debug then
+
     hook.Add('Ju_MGState_WasChanged', 'Ju_MGState_WasChanged_Main', function(ply, oldState, newState)
         
         handleMGStateWasChanged(ply, oldState, newState)
@@ -68,6 +69,8 @@ if cfg.debug then
         
     end)
    
-else        
+else
+
     hook.Add('Ju_MGState_WasChanged', 'Ju_MGState_WasChanged_Main', handleMGStateWasChanged)
+    
 end
