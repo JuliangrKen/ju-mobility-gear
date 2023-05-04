@@ -17,8 +17,8 @@ concommand.Add('ju_mg_draw_dots', function(ply, cmd, args, argStr)
     local distCenter = cfg.maxLength - cfg.minLength
     local slopeDist = cfg.defaultSlopeDist
 
-    local bomb1 = classes.trace_bomb:new(Vector(100, 0, 100), radius)
-    local bomb2 = classes.trace_bomb:new(Vector(100, 0, 100), radius)
+    local bomb1 = classes.trace_bomb:new(radius)
+    local bomb2 = classes.trace_bomb:new(radius)
 
     hook.Add('PostDrawOpaqueRenderables', 'ju_mobility_gear_draw_dots', function()
     

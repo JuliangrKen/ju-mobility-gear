@@ -14,7 +14,6 @@ local TRACE_BOMB = {}
     
     public:
 
-    Pos
     Radius
     NumVertexesCircle
 
@@ -22,19 +21,44 @@ local TRACE_BOMB = {}
 
 TRACE_BOMB.__index = TRACE_BOMB
 
-function TRACE_BOMB:new(pos, radius, numVertexesCircle)
+function TRACE_BOMB:new(radius, numVertexesCircle)
     
     local heir = setmetatable({}, self)
 
     heir.__index = self
 
-    heir.Pos = pos
     heir.Radius = radius
     heir.NumVertexesCircle = numVertexesCircle or defaultNumVertexesCircle
 
     return heir
 
 end
+
+
+function TRACE_BOMB:SetPos(pos)
+
+    if self.pos != pos then
+        
+        if self.vertexes then
+        
+            self:UpdateScale(pos / self.pos)
+    
+        end
+    
+        self.pos = pos
+
+    end
+
+    return self
+
+end
+
+function TRACE_BOMB:GetPos()
+
+    return self
+    
+end
+
 
 function TRACE_BOMB:SetSphereAxis(sphereAxis)
     
@@ -63,6 +87,7 @@ function TRACE_BOMB:SetVertical()
 
 end
 
+
 function TRACE_BOMB:SetTraceFilter(filter)
 
     self.filter = filter
@@ -75,6 +100,7 @@ function TRACE_BOMB:GetTraceFilter()
     return filter
 
 end
+
 
 --[[
     function samplingConditionsFunc(trace, pos)
@@ -96,6 +122,7 @@ function TRACE_BOMB:GetSamplingConditionsFunc()
 
 end
 
+
 function TRACE_BOMB:SetTakeEverything()
     
     self.takeEverything = true
@@ -109,6 +136,7 @@ function TRACE_BOMB:SetTakeFirstOne()
     return self
 
 end
+
 
 local function createCircle(numVertexesCircle)
     
@@ -170,7 +198,7 @@ function TRACE_BOMB:shereSetup()
     
     local matrix = Matrix()
 
-    matrix:Translate(self.Pos)
+    matrix:Translate(self.pos)
     matrix:Scale(Vector(self.Radius, self.Radius, self.Radius))
     matrix:Rotate(self:GetSphereAxis():Angle())
 
@@ -204,6 +232,20 @@ function TRACE_BOMB:UpdateVertexes()
 
 end
 
+function TRACE_BOMB:UpdateScale(k)
+   
+    local matrix = Matrix()
+    matrix:Scale(Vector(k, k, k))
+
+    for k, v in ipairs(self.vertexes) do
+        
+        self.vertexes[k] = matrix * v
+
+    end
+    
+end
+
+
 function TRACE_BOMB:Boom()
     
     if !self.vertexes then
@@ -216,7 +258,7 @@ function TRACE_BOMB:Boom()
         
         local trace = util.TraceLine({
             
-            start = self.Pos,
+            start = self.pos,
             endpos = v,
 
             filter = self.filter,
@@ -225,7 +267,7 @@ function TRACE_BOMB:Boom()
 
         if !(trace and trace.Hit) then continue end
 
-        if self.samplingConditionsFunc and !self.samplingConditionsFunc(trace, self.Pos) then continue end
+        if self.samplingConditionsFunc and !self.samplingConditionsFunc(trace, self.pos) then continue end
 
         if !resultTable then return trace end
 
@@ -261,7 +303,7 @@ if CLIENT then
     function TRACE_BOMB:DrawPaintedShere(color)
         
         render.SetColorMaterial()
-        render.DrawSphere(self.Pos, self.Radius, self.NumVertexesCircle, self.NumVertexesCircle, color or defaultColor)
+        render.DrawSphere(self.pos, self.Radius, self.NumVertexesCircle, self.NumVertexesCircle, color or defaultColor)
 
     end
 
@@ -272,7 +314,7 @@ if CLIENT then
         for _, v in ipairs(self.vertexes) do
             
             render.SetColorMaterial()
-            render.DrawLine(self.Pos, v, color or defaultColor, true)
+            render.DrawLine(self.pos, v, color or defaultColor, true)
 
         end
 
