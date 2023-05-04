@@ -1,7 +1,6 @@
 
-local function drawMGDots()
-    
-end
+local cfg = ju.mobility_gear.cfg
+local classes = ju.mobility_gear.classes
 
 concommand.Add('ju_mg_draw_dots', function(ply, cmd, args, argStr)
 
@@ -12,7 +11,27 @@ concommand.Add('ju_mg_draw_dots', function(ply, cmd, args, argStr)
         return
     end
 
-    hook.Add('PostDrawOpaqueRenderables', 'ju_mobility_gear_draw_dots', drawMGDots)
+    local ply = LocalPlayer()
+
+    local radius = (cfg.maxLength - cfg.minLength) / 2
+    local distCenter = cfg.maxLength - cfg.minLength
+    local slopeDist = cfg.defaultSlopeDist
+
+    local bomb1 = classes.trace_bomb:new(Vector(100, 0, 100), radius)
+    local bomb2 = classes.trace_bomb:new(Vector(100, 0, 100), radius)
+
+    hook.Add('PostDrawOpaqueRenderables', 'ju_mobility_gear_draw_dots', function()
+    
+        bomb1.Pos = ply:LocalToWorld(Vector(distCenter, slopeDist, 0))
+        bomb2.Pos = ply:LocalToWorld(Vector(distCenter, -slopeDist, 0))
+        
+        bomb1:UpdateVertexes()
+        bomb1:DrawTraces()
+            
+        bomb2:UpdateVertexes()
+        bomb2:DrawTraces()
+
+    end)
 
 end, function () return {0, 1} end)
 

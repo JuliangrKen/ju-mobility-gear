@@ -12,13 +12,16 @@ local cfg = ju.mobility_gear.cfg
 -- ЛЕСКА
 
 -- Стандартная максимальная длина лески
-cfg.maxLength = 512
+cfg.maxLength = 2048
 
 -- Стандартная минимальная длина лески
-cfg.minLength = 256
+cfg.minLength = 512
+
+-- Дистанция уклона от центра
+cfg.defaultSlopeDist = 1024
 
 -- Стандартная длина лески в юнитах
-cfg.defaultLength = 512
+cfg.defaultLength = 1024
 
 -- Стандартная ширина лески
 cfg.defaultWidth = 2.5
