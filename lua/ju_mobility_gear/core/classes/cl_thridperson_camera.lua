@@ -19,14 +19,14 @@ CAMERA.__index = CAMERA
 
 function CAMERA:new(minDist, maxDist, height)
     
-    self.__index = self
+    local heir = setmetatable({}, self)
 
-    self.minDist = minDist
-    self.maxDist = maxDist
+    heir.__index = self
 
-    self.height = height
+    heir.minDist = minDist
+    heir.maxDist = maxDist
 
-    return setmetatable({}, self)
+    return heir
 
 end
 
