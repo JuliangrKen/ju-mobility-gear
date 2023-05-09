@@ -329,7 +329,7 @@ if CLIENT then
 end
 
 
--- local functions for crating vertexes
+-- local functions for creating vertexes
 
 --[[
     numVertexesCircle : Num
