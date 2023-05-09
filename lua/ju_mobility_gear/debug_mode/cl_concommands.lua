@@ -25,12 +25,14 @@ concommand.Add('ju_mg_draw_dots', function(ply, cmd, args, argStr)
 
     hook.Add('PostDrawOpaqueRenderables', 'ju_mobility_gear_draw_dots', function()
         
-        local sin = tSin(0.5, 0, 10, 0)
+        if state == 2 then
+            
+            local sin = tSin(0.5, 0, 500, 0)
+    
+            bomb1:SetRadius(radius + sin)
+            bomb2:SetRadius(radius + sin)
 
-        print(sin)
-
-        bomb1:SetRadius(radius + sin)
-        bomb2:SetRadius(radius + sin)
+        end
 
         bomb1:SetPos(ply:LocalToWorld(Vector(distCenter, slopeDist, 0)))
         bomb2:SetPos(ply:LocalToWorld(Vector(distCenter, -slopeDist, 0)))

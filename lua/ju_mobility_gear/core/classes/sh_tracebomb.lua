@@ -358,7 +358,7 @@ end
 --[[
     circleVertexes : Table { [index] = Vector }
 
-    return table { [index] = Vector }
+    return Table { [index] = Vector }
 ]]
 local function createShereByCircle(circleVertexes)
 
@@ -476,10 +476,18 @@ end
 ]]
 function TRACE_BOMB:increaseSize(num)
 
+    local curPos = self:GetPos()
+
+    -- temp set Vector(0,0,0) pos for correct scaling
+    self:SetPos(Vector(0, 0, 0))
+
     local matrix = Matrix()
-    matrix:SetScale(Vector(num, num, num))
+    matrix:Scale(Vector(num, num, num))
 
     self:multiplyByMatrix(matrix)
+
+    -- return to current pos
+    self:SetPos(curPos)
 
 end
 
@@ -487,8 +495,8 @@ end
     num : Num
 ]]
 function TRACE_BOMB:reduceSize(num)
-    
-    self:increaseSize(num > 0 and 1 / num or num - 1)
+
+    self:increaseSize(num > 1 and 1 / num or num)
 
 end
 
