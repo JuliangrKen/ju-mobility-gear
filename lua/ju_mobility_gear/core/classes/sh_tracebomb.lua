@@ -90,8 +90,6 @@ end
 ]]
 function TRACE_BOMB:SetRadius(radius)
 
-    print(radius)
-
     if self.radius != radius then
 
         local lastRadius = self:GetRadius()
@@ -108,8 +106,6 @@ function TRACE_BOMB:SetRadius(radius)
 
         end
     
-        self.pos = pos
-
     end
 
     return self
@@ -481,8 +477,7 @@ end
 function TRACE_BOMB:increaseSize(num)
 
     local matrix = Matrix()
-    -- SetScale
-    matrix:Scale(Vector(num, num, num))
+    matrix:SetScale(Vector(num, num, num))
 
     self:multiplyByMatrix(matrix)
 
