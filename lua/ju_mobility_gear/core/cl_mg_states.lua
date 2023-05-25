@@ -1,6 +1,4 @@
 
-local oldPlayerStates = {}
-
 net.Receive('Ju_UpdateMGState', function()
 
     local id = net.ReadUInt(7) + 1
@@ -9,10 +7,10 @@ net.Receive('Ju_UpdateMGState', function()
     local ply = Player(id)
     if !ply or !IsValid(ply) then return end
 
-    ply.MGState = state
-
-    local oldState = oldPlayerStates[ply]
+    local oldState = ply.MGState
     oldPlayerStates[ply] = newState
+
+    ply.MGState = newState
 
     hook.Run('Ju_MGState_WasChanged', ply, oldState, newState)
 
