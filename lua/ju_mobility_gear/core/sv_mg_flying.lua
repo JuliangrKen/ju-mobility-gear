@@ -48,7 +48,11 @@ local function moveWithMGMode(ply, mv)
 
     updateMVData(mv, angle, position, velocity)
 
-    ply:SetMGState(4)
+    if mg.runHooks(ply) then
+
+        ply:SetMGState(3)
+        
+    end
 
 end
 
@@ -62,9 +66,9 @@ local function fly(ply, mv)
     
     local angle, position, velocity = getDataFromMV(mv)
 
-    mv:SetMoveAngles(angle)
-	mv:SetOrigin(position)
-    mv:SetVelocity(velocity)
+    -- mv:SetMoveAngles(angle)
+	-- mv:SetOrigin(position)
+    -- mv:SetVelocity(velocity)
 
 
 
@@ -108,7 +112,6 @@ hook.Add('Move', 'ju_mobility_gear_move', function(ply, mv)
     end
 
     switchFunc(ply, mv)
-
 
 end)
 

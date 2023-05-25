@@ -32,7 +32,7 @@ end
 
 function PLAYER:UpdateTBPos(num, distCenter, slopeDist, vectorFunc)
 
-    distCenter, slopeDist = distCenter or cfg.maxLength - cfg.minLength, slopeDist or cfg.defaultSlopeDist
+    distCenter, slopeDist = distCenter or cfg.defaultMaxLength - cfg.defaultMinLength, slopeDist or cfg.defaultSlopeDist
 
     self['TB' .. num]:SetPos(self:LocalToWorld(vectorFunc(distCenter, slopeDist)))
 
@@ -61,8 +61,8 @@ end
 
 function PLAYER:UpdateTB(num, minDist, maxDist, updateFunc)
 
-    self.traceBombMinDist = minDist or self.traceBombMinDist or cfg.minLength
-    self.traceBombMaxDist = maxDist or self.traceBombMaxDist or cfg.maxLength
+    self.traceBombMinDist = minDist or self.traceBombMinDist or cfg.defaultMinLength
+    self.traceBombMaxDist = maxDist or self.traceBombMaxDist or cfg.defaultMaxLength
 
     local radius = (self.traceBombMinDist - self.traceBombMaxDist) / 2
 
@@ -78,15 +78,15 @@ function PLAYER:UpdateTB(num, minDist, maxDist, updateFunc)
 
     tb:SetRadius(radius)
 
-    updateFunc()
+    updateFunc(minDist, maxDist)
 
 end
 
 function PLAYER:UpdateTB1(minDist, maxDist)
     
-    self:UpdateTB(1, minDist, maxDist, function()
+    self:UpdateTB(1, minDist, maxDist, function(minDist, maxDist)
         
-        self:UpdateTB1Pos()
+        self:UpdateTB1Pos(minDist, maxDist)
 
     end)
 
@@ -94,19 +94,19 @@ end
 
 function PLAYER:UpdateTB2(minDist, maxDist)
     
-    self:UpdateTB(2, minDist, maxDist, function()
+    self:UpdateTB(2, minDist, maxDist, function(minDist, maxDist)
         
-        self:UpdateTB2Pos()
+        self:UpdateTB2Pos(minDist, maxDist)
 
     end)
 
 end
 
 
-function PLAYER:GetHookDots()
+function PLAYER:GetHookDots(minDist, maxDist)
 
-    self:UpdateTB1()
-    self:UpdateTB2()
+    self:UpdateTB1(minDist, maxDist)
+    self:UpdateTB2(minDist, maxDist)
 
     local trace1 = self.TB1:Boom()
     local trace2 = self.TB2:Boom()

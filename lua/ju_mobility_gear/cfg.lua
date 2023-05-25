@@ -8,14 +8,31 @@
 
 local cfg = ju.mobility_gear.cfg
 
+-- КРЮКИ
 
+-- https://wiki.facepunch.com/gmod/Enums/MASK
+cfg.traceMask = MASK_SOLID
+
+-- https://wiki.facepunch.com/gmod/Enums/COLLISION_GROUP
+cfg.traceCollisionGroup = COLLISION_GROUP_DEBRIS
+
+-- нужно ли игнорировать мир (true - only props)
+cfg.traceIgnoreWorld = false
+
+local whitelistEntity = {
+    ['prop_static'] = true,
+}
+
+cfg.traceFilter = function(entity)
+    return whitelistEntity[entity:GetClass()] or false
+end
 -- ЛЕСКА
 
 -- Стандартная максимальная длина лески
-cfg.maxLength = 2048
+cfg.defaultMaxLength = 2048
 
 -- Стандартная минимальная длина лески
-cfg.minLength = 512
+cfg.defaultMinLength = 512
 
 -- Дистанция уклона от центра
 cfg.defaultSlopeDist = 1024
@@ -44,8 +61,8 @@ cfg.customBones = {
 cfg.defaultLift = 0
 
 -- Выбор подъёма отдельно для каждой модели:
-cfg.customBones = {
-    ['model'] = 'bone_name',
+cfg.customLifts = {
+    ['model'] = 0,
 }
 
 

@@ -168,6 +168,8 @@ function TRACE_BOMB:SetVertical()
 
 end
 
+-- TODO: delete
+
 --[[
     Trace methods
 
@@ -252,17 +254,30 @@ function TRACE_BOMB:Boom()
 
     local resultTable = self.takeEverything and {}
 
+    local traceParams = { start = self:GetPos() }
+
+    -- TODO: не робит фильтер
+    if self.filter then
+        traceParams.filter = self.filter
+    end
+
+    if self.mask then
+        traceParams.mask = self.mask
+    end
+
+    if self.collisiongroup then
+        traceParams.collisiongroup = self.collisiongroup
+    end
+    
+    if self.ignoreworld then
+        traceParams.ignoreworld = self.ignoreworld
+    end
+
     for _, v in ipairs(self.vertexes) do
         
-        local trace = util.TraceLine({
-            
-            start = self:GetPos(),
-            endpos = v,
-
-            filter = self.filter,
+        traceParams.endpos = v
         
-        })
-
+        local trace = util.TraceLine(traceParams)
         if !(trace and trace.Hit) then continue end
 
         if self.samplingConditionsFunc and !self.samplingConditionsFunc(trace, self:GetPos()) then continue end
