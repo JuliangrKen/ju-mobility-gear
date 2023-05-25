@@ -8,8 +8,6 @@ net.Receive('Ju_UpdateMGState', function()
     if !ply or !IsValid(ply) then return end
 
     local oldState = ply.MGState
-    oldPlayerStates[ply] = newState
-
     ply.MGState = newState
 
     hook.Run('Ju_MGState_WasChanged', ply, oldState, newState)
