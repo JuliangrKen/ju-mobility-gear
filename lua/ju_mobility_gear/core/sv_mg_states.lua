@@ -7,8 +7,8 @@ local function sendNet(ply, sendFunc, ...)
     local state = ply:GetMGState()
 
     net.Start 'Ju_UpdateMGState'
-        net.WriteUInt(id, 8)
-        net.WriteUInt(state, 8)
+        net.WriteUInt(id - 1, 7)
+        net.WriteUInt(state, 3)
     sendFunc(...)
 
 end
