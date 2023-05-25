@@ -9,10 +9,11 @@ local minDist = 32
 local maxDist = 128
 local height = 16
 
--- TODO: Разместить создание камеры в момент смены MG State
 -- TODO: Добавить настройку вида от 3 лица (по необходимости)
 -- TODO: Удалить хуки, что могут повлиять на работу камеры
+-- TODO: Доработать эффект!
 
+-- TODO: Разместить создание камеры в момент смены MG State
 -- local camera = ju.mobility_gear.classes.camera:new(minDist, maxDist, height)
 
 local camera
@@ -43,8 +44,6 @@ local function calcView(ply, eyeVector, eyeAngle, fov, znear, zfar)
     return view
 
 end
-
--- TODO: Доработать эффект!
 
 local function canDraw(hands, vm, ply, weapon)
     
