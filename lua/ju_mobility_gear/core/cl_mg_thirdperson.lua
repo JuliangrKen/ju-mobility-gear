@@ -54,8 +54,6 @@ end
 
 hook.Add('Ju_MGState_WasChanged', 'Ju_MGState_WasChanged_Calcview', function(ply, oldState, newState)
     
-    print(ply)
-
     if ply != LocalPlayer() then
         return
     end
