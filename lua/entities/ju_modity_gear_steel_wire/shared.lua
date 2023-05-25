@@ -17,7 +17,7 @@ if SERVER then
 
     function ENT:Initialize()
         
-        local mg_hook = ents.Create 'mg_hook'
+        local mg_hook = ents.Create 'ju_modity_gear_hook'
         self:DeleteOnRemove(mg_hook)
 
         self.mg_hook = mg_hook
