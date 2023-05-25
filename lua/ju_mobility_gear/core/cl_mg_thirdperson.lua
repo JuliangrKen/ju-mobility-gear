@@ -10,6 +10,9 @@ local maxDist = 128
 local height = 16
 
 -- TODO: Разместить создание камеры в момент смены MG State
+-- TODO: Добавить настройку вида от 3 лица (по необходимости)
+-- TODO: Удалить хуки, что могут повлиять на работу камеры
+
 -- local camera = ju.mobility_gear.classes.camera:new(minDist, maxDist, height)
 
 local camera
@@ -49,10 +52,23 @@ local function canDraw(hands, vm, ply, weapon)
 
 end
 
--- TODO: Добавлять хук, когда берётся УПМ
--- TODO: Добавить настройку вида от 3 лица (по необходимости)
+hook.Add('Ju_MGState_WasChanged', 'Ju_MGState_WasChanged_Calcview', function(ply, oldState, newState)
+    
+    print(ply)
 
-hook.Add('CalcView', 'ju_mobility_gear_calcview', calcView)
-hook.Add('PreDrawPlayerHands', 'ju_mobility_gear_hands', canDraw)
+    if ply != LocalPlayer() then
+        return
+    end
 
--- TODO: Удалить хуки, что могут повлиять на работу камеры
+    if newState == 0 then
+        
+        hook.Remove('CalcView', 'ju_mobility_gear_calcview', calcView)
+        hook.Remove('PreDrawPlayerHands', 'ju_mobility_gear_hands', canDraw)
+        return
+
+    end
+
+    hook.Add('CalcView', 'ju_mobility_gear_calcview', calcView)
+    hook.Add('PreDrawPlayerHands', 'ju_mobility_gear_hands', canDraw)
+    
+end)
